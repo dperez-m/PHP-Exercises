@@ -9,6 +9,10 @@
 <body>
     <?php
     require_once "connection.php";
+    $email = null;
+    $pwd = null;
+    $pwd2 = null;
+    $check = false;
 
     $roles = findAllRoles();
 
@@ -22,6 +26,7 @@
         if (isset($_POST["inputPassword2"]) && isNotEmpty($_POST["inputPassword2"])) {
             $pwd2 = $_POST["inputPassword2"];
         }
+        $check = checkPwd($pwd, $pwd2);
     }
     ?>
         <h1>Sign in your account</h1>
@@ -67,6 +72,13 @@
     <button type="submit" class="btn btn-primary">Sign in</button>
   </div>
 </form>
+<?php
+if (!$check && !is_null($pwd)) {
+    echo '<div class="alert alert-danger" role="alert">
+    The passwords are not the same!
+  </div>';
+}
+?>
 
 <?php
 function findAllRoles(): array {
