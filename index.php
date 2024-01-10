@@ -16,6 +16,7 @@
   $email = null;
   $pwd = null;
   $pwd2 = null;
+  $role = null;
   $check = false;
 
   $roles = findAllRoles();
@@ -28,14 +29,17 @@
     if (isset($_POST["inputPassword2"])) {
       $pwd2 = $_POST["inputPassword2"];
     }
+    if (isset($_POST["inputRole"])) {
+      $role = $_POST["inputRole"];
+    }
     if (checkPwd($pwd, $pwd2)) {
       if (checkemail($email)) {
-        insertuser($email, $pwd);
+        insertuser($email, $pwd, $role);
       }
     }
   }
   ?>
-  <h1>Sign in your account</h1>
+  <h1>Sign up</h1>
   <form class="row gx-3 gy-2 align-items-center" method="post">
     <div class="col-sm-3">
       <label class="visually-hidden" for="inputEmail">Email</label>
@@ -61,7 +65,7 @@
     </div>
     <div class="col-sm-3">
       <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-      <select class="form-select" id="specificSizeSelect">
+      <select class="form-select" id="inputRole" name="inputRole">
         <option selected>Choose role</option>
         <?php
         if (count($roles) > 0) :
@@ -75,7 +79,7 @@
       </select>
     </div>
     <div class="col-auto">
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="submit" class="btn btn-primary">Sign up</button>
     </div>
   </form>
   <?php
