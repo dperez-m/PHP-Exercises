@@ -24,8 +24,8 @@ function insertuser($email, $pwd, $role) :bool {
 
         $condb->commit();
     } catch (Exception $e) {
-        $condb->rollBack();
         echo '<div class="alert alert-danger" role="alert"> An error ocurred when registering the user, message: $e->getMessage()</div>';
+        $condb->rollBack();
         return false;
     }
     echo '<div class="alert alert-success" role="alert"> The user has been registered.</div>';
