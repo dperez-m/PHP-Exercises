@@ -15,7 +15,7 @@ class Profesor extends Persona{
 
     public function añadirBaile(String $nombre, int $edad){
         foreach ($this->bailes as $baile){
-            if ($baile.getName() == $nombre)
+            if ($baile->getName() == $nombre)
                 $exists = true;
         }
         if (isset($exists))
@@ -24,7 +24,7 @@ class Profesor extends Persona{
 
     public function eliminarBaile(String $nombre){
         foreach ($this->bailes as $baile){
-            if ($baile.getName() == $nombre){
+            if ($baile->getName() == $nombre){
                 $baile = null;
             }
         }
