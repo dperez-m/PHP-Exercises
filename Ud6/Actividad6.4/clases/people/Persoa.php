@@ -1,11 +1,15 @@
 <?php
 namespace clases\people;
+
+use traits\Logger;
+
 /**
  * Description of Persoa
  *
  * @author maria
  */
-abstract class Persoa {
+abstract class Persoa implements \JsonSerializable {
+    use Logger;
    protected $nome;
    protected $apelidos;
    protected $mobil;
@@ -43,4 +47,12 @@ abstract class Persoa {
    }
 
    public abstract function verInformacion();
+
+   public function jsonSerialize(): mixed
+   {
+       $this->log("Serializando...");
+       return $this->nome;
+   }
+
+
 }

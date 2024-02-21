@@ -46,6 +46,7 @@ echo "<h2>{$profe1->getNome()}->verInformacion()</h2>";
 $profe1->verInformacion();
 $alumno1->verInformacion();
 $alumno2->verInformacion();
+$profe1->jsonSerialize();
 
 echo "<h2>{$profe1->getNome()}->calcularSoldo(2)</h2>";
 $soldo = $profe1->calcularSoldo(2);
