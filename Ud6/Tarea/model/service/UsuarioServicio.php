@@ -5,21 +5,36 @@ class UsuarioServicio
 
     const USER_DOES_NOT_EXIST = "No existe usuario";
     const PWD_INCORRECT = "La contraseña no es correcta";
+    private IUsuarioRepository $userRepository;
+    private IRolRepository $rolRepository;
 
-
-
-
-
-
-    public function getUsuarios(): array
+    public function __construct()
     {
-        //TODO
+        $this->userRepository = new UsuarioRepository();
+        $this->rolRepository = new RolRepository();
+    }
 
+
+    public function getUsuarios(): array{
+
+        $users = $this->userRepository->findAll();
+
+        foreach ($users as $user) {
+            $user->setRoles($this->rolRepository->findRolesByUserId($user->getId()));
+        }
+        return $users;
     }
 
     public function login(string $user, string $pwd, $rolId): ?Usuario
     {
-        //TODO
+        $user = $this->userRepository->findUsuarioByEmail($user);
+        if (password_verify($pwd, $user->getPwdhash())){
+            $roles = $this->rolRepository->findRolesByUserId($user->getId());
+            $user->setRoles($roles);
+            if ($this->isUserInRole($user, $rolId))
+                return $user;
+        }
+        return null;
     }
 
     public function getRoles(): array

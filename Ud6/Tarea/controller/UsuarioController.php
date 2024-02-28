@@ -41,7 +41,20 @@ class UsuarioController
         $app_roles = $this->usuarioServicio->getRoles();
         $loginViewData = new LoginViewData($app_roles);
 
-        //TODO
+        if (isset($_POST["email"]) && isset($_POST["pwd"]) && isset($_POST["rol"])){
+            $email = $_POST["email"];
+            $pwd = $_POST["pwd"];
+            $rol = $_POST["rol"];
+            $user = $this->usuarioServicio->login($email, $pwd, $rol);
+
+            if (!is_null($user)){
+                $_SESSION["userId"] = $user->getId();
+                $_SESSION["roleId"] = $rol;
+                $_SESSION["email"] = $email;
+
+                $this->redirectAccordingToRole();
+            } else $loginViewData->setStatus(Util::OPERATION_NOK);
+    } else return $loginViewData;
 
         //         4. En la clase UsuarioController, completa la implementación del método login() para que:
 // a) si vienen por el método HTTP POST los datos email, contraseña y rol, compruebe a través del servicio si las credenciales son válidas.

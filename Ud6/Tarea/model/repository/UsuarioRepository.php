@@ -28,6 +28,9 @@ class UsuarioRepository extends BaseRepository implements IUsuarioRepository
 
         $pdostmt = $this->conn->prepare($consulta);
         $pdostmt->execute();
+
+        $user = $pdostmt->fetchAll(PDO::FETCH_CLASS, $this->class_name);
+        return $user; //Checkear si falla
     }
 
 
