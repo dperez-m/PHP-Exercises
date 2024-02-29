@@ -54,7 +54,7 @@ class UsuarioController
 
                 $this->redirectAccordingToRole();
             } else $loginViewData->setStatus(Util::OPERATION_NOK);
-    } else return $loginViewData;
+    }  return $loginViewData;
 
         //         4. En la clase UsuarioController, completa la implementación del método login() para que:
 // a) si vienen por el método HTTP POST los datos email, contraseña y rol, compruebe a través del servicio si las credenciales son válidas.
